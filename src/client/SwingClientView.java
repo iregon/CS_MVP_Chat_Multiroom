@@ -2,6 +2,7 @@ package client;
 
 import java.awt.BorderLayout;
 import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 
 import javax.swing.JButton;
@@ -15,15 +16,13 @@ import javax.swing.JSplitPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
+import javax.swing.border.EmptyBorder;
 
 import general.MvpViewAbstract;
-import general.Presenter;
 
 public class SwingClientView extends MvpViewAbstract<ClientPresenter> implements ClientView {
 	
 	private static final String WINDOW_NAME="Client";
-	
-	private ClientPresenter presenter;
 	
 	// GUI
 	private JFrame frame;
@@ -33,7 +32,7 @@ public class SwingClientView extends MvpViewAbstract<ClientPresenter> implements
 	
 	private JSplitPane mainSplitpane;
 	
-	private JPanel messagesPanel;
+	private JPanel chatPanel;
 	private JScrollPane messagesScrollPane;
 	private JLabel messagesLabel;
 	private JTextPane messagesTextPane;
@@ -56,25 +55,7 @@ public class SwingClientView extends MvpViewAbstract<ClientPresenter> implements
 		menuBar = new JMenuBar();
 		mnFile = new JMenu("File");
 		
-		mainSplitpane = new JSplitPane();
 		
-		messagesPanel = new JPanel();
-		messagesScrollPane = new JScrollPane();
-		messagesLabel = new JLabel("Messaggi");
-		messagesTextPane = new JTextPane();
-		
-		optionsSplitPane = new JSplitPane();
-		optionsTabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		
-		inputOptionsPanel = new JPanel();
-		
-		roomTextField = new JTextField();
-		
-		changeRoomButton = new JButton("Cambia stanza");
-		
-		sendMessagePanel = new JPanel();
-		messageTextField = new JTextField(30);
-		sendMessageButton = new JButton("Invia");
 	}
 	
 	@Override
@@ -88,47 +69,93 @@ public class SwingClientView extends MvpViewAbstract<ClientPresenter> implements
 		Container co = frame.getContentPane();
 		co.add(generateMainJPanel());
 		
-		frame.setBounds(100, 100, 664, 434);
+		frame.setBounds(100, 100, 800, 450);
+		frame.setMinimumSize(new Dimension(800, 450));
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
 	}
 	
 	private JPanel generateMainJPanel() {
-		JPanel jp = new JPanel();
-		jp.setLayout(new BorderLayout());
+		JPanel mainPanel = new JPanel();
+		mainPanel.setLayout(new BorderLayout());
 		
 		frame.setJMenuBar(menuBar);
 		menuBar.add(mnFile);
 		
-		mainSplitpane.setResizeWeight(1.0);
-		mainSplitpane.setLeftComponent(messagesPanel);
-		mainSplitpane.setRightComponent(optionsSplitPane);
-		jp.add(mainSplitpane, BorderLayout.CENTER);
+		chatPanel = createChatPanel();
 		
-		messagesPanel.setLayout(new BorderLayout(0, 0));
-		messagesPanel.add(messagesScrollPane);
+		optionsSplitPane = createOptionSplitPane();
+		
+		mainSplitpane = createMainSplitPane();
+		mainPanel.add(mainSplitpane, BorderLayout.CENTER);
+		
+		sendMessagePanel = createSendMessagePanel();
+		chatPanel.add(sendMessagePanel, BorderLayout.SOUTH);
+		
+		return mainPanel;
+	}
+	
+	private JSplitPane createMainSplitPane() {
+		JSplitPane splitPane = new JSplitPane();
+		
+		splitPane.setResizeWeight(0.6);
+		splitPane.setLeftComponent(chatPanel);
+		splitPane.setRightComponent(optionsSplitPane);
+		
+		return splitPane;
+	}
+	
+	private JPanel createChatPanel() {
+		JPanel panel = new JPanel();
+		
+		messagesScrollPane = new JScrollPane();
+		messagesLabel = new JLabel("Messaggi");
+		messagesTextPane = new JTextPane();
+		
+		panel.setLayout(new BorderLayout(0, 0));
+		panel.add(messagesScrollPane);
+		
+		messagesLabel.setBorder(new EmptyBorder(5, 5, 5, 5));
+		
+		messagesTextPane.setEditable(false);
 		
 		messagesScrollPane.setViewportView(messagesTextPane);
 		messagesScrollPane.setColumnHeaderView(messagesLabel);
 		
-		optionsSplitPane.setResizeWeight(0.6);
-		optionsSplitPane.setOrientation(JSplitPane.VERTICAL_SPLIT);
-		optionsSplitPane.setLeftComponent(optionsTabbedPane);
-		optionsSplitPane.setRightComponent(inputOptionsPanel);
+		return panel;
+	}
+	
+	private JSplitPane createOptionSplitPane() {
+		JSplitPane splitPane = new JSplitPane();
+		
+		optionsTabbedPane = new JTabbedPane(JTabbedPane.TOP);
+		inputOptionsPanel = new JPanel();
+		roomTextField = new JTextField();
+		changeRoomButton = new JButton("Cambia stanza");
+		
+		splitPane.setResizeWeight(0.6);
+		splitPane.setOrientation(JSplitPane.VERTICAL_SPLIT);
+		splitPane.setLeftComponent(optionsTabbedPane);
+		splitPane.setRightComponent(inputOptionsPanel);
 		
 		inputOptionsPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 5));
 		inputOptionsPanel.add(roomTextField);
 		inputOptionsPanel.add(changeRoomButton);
 		
 		roomTextField.setColumns(20);
-	
-		sendMessagePanel.add(messageTextField);
-		sendMessagePanel.add(sendMessageButton);
 		
-		jp.add(sendMessagePanel, BorderLayout.SOUTH);
-		
-		return jp;
+		return splitPane;
 	}
 	
-
+	private JPanel createSendMessagePanel() {
+		JPanel panel = new JPanel();
+		
+		messageTextField = new JTextField(30);
+		sendMessageButton = new JButton("Invia");
+		
+		panel.add(messageTextField);
+		panel.add(sendMessageButton);
+		
+		return panel;
+	}
 }
