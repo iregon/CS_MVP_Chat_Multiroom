@@ -1,4 +1,4 @@
-package client;
+package client.presenter;
 
 import general.Presenter;
 

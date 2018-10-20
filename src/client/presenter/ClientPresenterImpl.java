@@ -1,4 +1,7 @@
-package client;
+package client.presenter;
+
+import client.model.ClientModel;
+import client.view.ClientView;
 
 public class ClientPresenterImpl implements ClientPresenter {
 

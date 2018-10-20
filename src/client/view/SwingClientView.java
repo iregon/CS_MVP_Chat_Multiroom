@@ -1,4 +1,4 @@
-package client;
+package client.view;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -18,7 +18,7 @@ import javax.swing.JTextPane;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
-
+import client.presenter.ClientPresenter;
 import general.MvpViewAbstract;
 
 public class SwingClientView extends MvpViewAbstract<ClientPresenter> implements ClientView {
@@ -31,8 +31,8 @@ public class SwingClientView extends MvpViewAbstract<ClientPresenter> implements
 	private JTextField newRoomTextField;
 	private JTextField changeRoomTextField;
 	
-	JPanel messagesPanel;
-	JPanel optionsPanel;
+	private JPanel messagesPanel;
+	private JPanel optionsPanel;
 	
 	public SwingClientView() {
 		frame = new JFrame(WINDOW_NAME);
@@ -211,8 +211,7 @@ public class SwingClientView extends MvpViewAbstract<ClientPresenter> implements
 			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				// TODO Auto-generated method stub
-				
+				// TODO newRoomButton action
 			}
 		});
 		panel.add(newRoomButton, BorderLayout.EAST);
@@ -234,8 +233,7 @@ public class SwingClientView extends MvpViewAbstract<ClientPresenter> implements
 			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				// TODO Auto-generated method stub
-				
+				// TODO changeRoomButton action
 			}
 		});
 		panel.add(changeRoomButton, BorderLayout.EAST);
