@@ -10,4 +10,9 @@ public class ClientPresenterImpl implements ClientPresenter {
 		this.model = model;
 	}
 	
+	@Override
+	public void sendMessageRequest(String msg) {
+		System.out.println(msg);
+	}
+	
 }

@@ -116,7 +116,10 @@ public class SwingClientView extends MvpViewAbstract<ClientPresenter> implements
 		
 		JButton sendMessageButton = new JButton("Invia");
 		sendMessageButton.addActionListener(new ActionListener() {
+			
+			@Override
 			public void actionPerformed(ActionEvent arg0) {
+				presenter.sendMessageRequest(messageTextField.getText());
 			}
 		});
 		panel.add(sendMessageButton);
@@ -209,10 +212,15 @@ public class SwingClientView extends MvpViewAbstract<ClientPresenter> implements
 		newRoomTextField = new JTextField(20);
 		panel.add(newRoomTextField, BorderLayout.CENTER);
 		
-		JButton newRoomButton = new JButton("Crea stanza");
-		newRoomButton.setPreferredSize(new Dimension(103, 23));
-		newRoomButton.setMinimumSize(new Dimension(103, 23));
-		newRoomButton.setMaximumSize(new Dimension(103, 23));
+		JButton newRoomButton = createRoomPanelButton("Crea Stanza");
+		newRoomButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
 		panel.add(newRoomButton, BorderLayout.EAST);
 		
 		return panel;
@@ -227,9 +235,38 @@ public class SwingClientView extends MvpViewAbstract<ClientPresenter> implements
 		changeRoomTextField = new JTextField(20);
 		panel.add(changeRoomTextField);
 		
-		JButton changeRoomButton = new JButton("Cambia stanza");
+		JButton changeRoomButton = createRoomPanelButton("Cambia stanza");
+		changeRoomButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
 		panel.add(changeRoomButton, BorderLayout.EAST);
 		
 		return panel;
 	}
+	
+	private JButton createRoomPanelButton(String name) {
+		JButton button = new JButton(name);
+		Dimension buttonSize = new Dimension(123, 23); 
+		
+		button.setPreferredSize(buttonSize);
+		button.setMinimumSize(buttonSize);
+		button.setMaximumSize(buttonSize);
+		
+		return button;
+	}
+	
+//	class sendButtonActionListener implements ActionListener {
+//
+//		@Override
+//		public void actionPerformed(ActionEvent arg0) {
+//			// TODO Auto-generated method stub
+//			
+//		}
+//		
+//	}
 }
