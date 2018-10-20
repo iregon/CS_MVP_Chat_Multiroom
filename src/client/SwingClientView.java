@@ -115,13 +115,7 @@ public class SwingClientView extends MvpViewAbstract<ClientPresenter> implements
 		messageTextField.setColumns(30);
 		
 		JButton sendMessageButton = new JButton("Invia");
-		sendMessageButton.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				presenter.sendMessageRequest(messageTextField.getText());
-			}
-		});
+		sendMessageButton.addActionListener(new SendButtonActionListener());
 		panel.add(sendMessageButton);
 		
 		return panel;
@@ -260,13 +254,12 @@ public class SwingClientView extends MvpViewAbstract<ClientPresenter> implements
 		return button;
 	}
 	
-//	class sendButtonActionListener implements ActionListener {
-//
-//		@Override
-//		public void actionPerformed(ActionEvent arg0) {
-//			// TODO Auto-generated method stub
-//			
-//		}
-//		
-//	}
+	class SendButtonActionListener implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			if(!messageTextField.getText().equals(""))
+				presenter.sendMessageRequest(messageTextField.getText());
+		}
+	}
 }
