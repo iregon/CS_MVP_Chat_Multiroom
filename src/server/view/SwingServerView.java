@@ -20,9 +20,10 @@ import javax.swing.text.StyledDocument;
 
 import general.MvpViewAbstract;
 import general.Presenter;
+import server.presenter.ServerPresenter;
 import utils.LogManager;
 
-public class SwingServerView extends MvpViewAbstract<Presenter> implements ServerView {
+public class SwingServerView extends MvpViewAbstract<ServerPresenter> implements ServerView {
 	
 	private static final String WINDOW_NAME = "Server";
 	
@@ -46,6 +47,8 @@ public class SwingServerView extends MvpViewAbstract<Presenter> implements Serve
 		co.add(generateGUI());
 		
 		setFrameOptions();
+		
+		presenter.startServerSocket();
 	}
 	
 	public JPanel generateGUI() {
