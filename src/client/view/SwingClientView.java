@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
@@ -35,9 +36,21 @@ public class SwingClientView extends MvpViewAbstract<ClientPresenter> implements
 	private JPanel optionsPanel;
 	
 	public SwingClientView() {
+		getServerAddress();
+		getUsername();
 		frame = new JFrame(WINDOW_NAME);
 	}
 	
+	private void getUsername() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void getServerAddress() {
+		String addr = JOptionPane.showInputDialog(null, "Inserisci l'indirizzo IP del server\n[es.: 192.168.1.10]", "Indirizzo server", JOptionPane.INFORMATION_MESSAGE);
+		presenter.setAddress(addr);
+	}
+
 	@Override
 	public void appendMessage(String Message) {
 		// TODO Auto-generated method stub
