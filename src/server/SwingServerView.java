@@ -11,7 +11,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextPane;
 import javax.swing.border.EmptyBorder;
-import javax.swing.border.EtchedBorder;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.SimpleAttributeSet;
@@ -55,24 +54,38 @@ public class SwingServerView extends MvpViewAbstract<Presenter> implements Serve
 		panel.setLayout(new BorderLayout());
 		panel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		
+		mainTabbedPane = createMainTabbedPane();	
+		
+		panel.add(mainTabbedPane);
+		
+		return panel;
+	}
+	
+	private JPanel createLogsPanel() {
+		JPanel panel = new JPanel();
+		
 		logsTextPane = new JTextPane();
 		logsTextPane.setEditable(false);
 		
 		logsScrollPane = new JScrollPane(logsTextPane);
 		
-		logsPanel = new JPanel();
-		logsPanel.setLayout(new BorderLayout());
-		logsPanel.add(logsScrollPane, BorderLayout.CENTER);
+		panel.setLayout(new BorderLayout());
+		panel.add(logsScrollPane, BorderLayout.CENTER);
+		
+		return panel;
+	}
+	
+	private JTabbedPane createMainTabbedPane() {
+		JTabbedPane tabbedPane = new JTabbedPane();
+		
+		logsPanel = createLogsPanel();
 		
 		optionsPanel = new JPanel();
 		
-		mainTabbedPane = new JTabbedPane();				
-		mainTabbedPane.addTab("Logs", logsPanel);
-		mainTabbedPane.addTab("Options", optionsPanel);
+		tabbedPane.addTab("Logs", logsPanel);
+		tabbedPane.addTab("Options", optionsPanel);
 		
-		panel.add(mainTabbedPane);
-		
-		return panel;
+		return tabbedPane;
 	}
 	
 	public void setFrameOptions() {
