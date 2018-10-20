@@ -1,4 +1,7 @@
-package server;
+package server.presenter;
+
+import server.model.ServerModel;
+import server.view.ServerView;
 
 public class ServerPresenterImpl implements ServerPresenter {
 	

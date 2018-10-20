@@ -1,4 +1,4 @@
-package server;
+package server.view;
 
 import java.awt.Color;
 
