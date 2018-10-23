@@ -1,5 +1,6 @@
 package server.presenter;
 
+import java.awt.Color;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -29,7 +30,7 @@ public class ServerPresenterImpl implements ServerPresenter {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		view.appendLog(">>> Server avviato");
+		view.appendLog(">>> Server avviato\n");
 		startConnectionHandler();
 	}
 	

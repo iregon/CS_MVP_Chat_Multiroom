@@ -11,7 +11,7 @@ public class ClientPresenterImpl implements ClientPresenter {
 	private ClientView view;
 	private ClientModel model;
 	
-	private String address = null;
+	private String address;
 	
 	private Socket socket;
 	
