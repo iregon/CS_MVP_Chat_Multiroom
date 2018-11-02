@@ -1,12 +1,14 @@
 package server.presenter;
 
-import java.awt.Color;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
 import configuration.Configuration;
 import server.model.ServerModel;
+import server.thread.Program;
+import server.users.User;
+import server.users.UserImpl;
 import server.view.ServerView;
 
 public class ServerPresenterImpl implements ServerPresenter {
@@ -38,6 +40,10 @@ public class ServerPresenterImpl implements ServerPresenter {
 		while (true) {
 			try {
 				Socket socket = serverSocket.accept();
+				Thread thread = new Thread(new Program(socket));
+				User newUser = new UserImpl(null, socket);
+				model.addUser(newUser);
+				thread.start();
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
